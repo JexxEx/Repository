@@ -1,0 +1,76 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+ifstream f("forta.txt");
+ofstream o("forta_iesire.txt");
+
+int frecventa_forte[100];
+int main()
+{
+    int c, n, i = 0, nrDivizori, fortaMaxima = INT_MIN, celMaiMicNumar = INT_MAX, j, lungimeMaxima = INT_MIN;
+    int v[100000];
+
+    f >> c >> n;
+
+    while (f >> v[i])
+    {
+        i++;
+    }
+
+    if (c == 1)
+    {
+        for (i = 0; i < n; i++)
+        {
+            nrDivizori = 2;
+            for (j = 2; j <= v[i] / 2; j++)
+            {
+                if (v[i] % j == 0)
+                {
+                    nrDivizori++;
+                }
+            }
+
+            if (nrDivizori > fortaMaxima)
+            {
+                fortaMaxima = nrDivizori;
+                celMaiMicNumar = v[i];
+            }
+            else if (nrDivizori == fortaMaxima && v[i] < celMaiMicNumar)
+            {
+                celMaiMicNumar = v[i];
+            }
+        }
+
+        o << celMaiMicNumar;
+    }
+    else if (c == 2)
+    {
+        for (i = 0; i < n; i++)
+        {
+            nrDivizori = 2;
+            for (j = 2; j <= v[i] / 2; j++)
+            {
+                if (v[i] % j == 0)
+                {
+                    nrDivizori++;
+                }
+            }
+
+            frecventa_forte[nrDivizori]++;
+        }
+
+        for (i = 0; i < 100; i++)
+        {
+            if (frecventa_forte[i] > lungimeMaxima)
+            {
+                lungimeMaxima = frecventa_forte[i];
+            }
+        }
+
+        o << lungimeMaxima;
+    }
+    
+    return 0;
+}
